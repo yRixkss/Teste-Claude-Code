@@ -1,0 +1,334 @@
+🎓 TUTORIAL PASSO A PASSO - PRIMEIRO PROJETO
+============================================
+
+Este tutorial vai guiar você na criação do seu primeiro projeto
+de sincronização de imagens no OpenShot.
+
+
+══════════════════════════════════════════════════════════════
+OPÇÃO 1: MÉTODO MAIS FÁCIL (Assistente Interativo)
+══════════════════════════════════════════════════════════════
+
+PASSO 1: Execute o assistente
+------------------------------
+$ python3 assistente_interativo.py
+
+PASSO 2: Siga as instruções na tela
+------------------------------------
+O assistente vai perguntar:
+✓ Nome do projeto
+✓ Resolução do vídeo
+✓ Caminhos das imagens
+✓ Timestamps
+✓ Duração de cada imagem
+
+PASSO 3: Confirme e aguarde
+----------------------------
+✓ Revise o resumo
+✓ Confirme com 's'
+✓ Aguarde a criação do projeto
+
+PASSO 4: Abra no OpenShot
+--------------------------
+✓ Abra o OpenShot
+✓ File → Open Project
+✓ Selecione o arquivo .osp criado
+✓ Visualize suas imagens sincronizadas!
+
+
+══════════════════════════════════════════════════════════════
+OPÇÃO 2: MÉTODO RÁPIDO (Editar Script)
+══════════════════════════════════════════════════════════════
+
+PASSO 1: Prepare suas imagens
+------------------------------
+Coloque suas imagens em uma pasta, por exemplo:
+/home/usuario/projeto/
+  ├── imagem1.png
+  ├── imagem2.png
+  └── imagem3.png
+
+PASSO 2: Abra o arquivo exemplo_uso.py
+---------------------------------------
+Use seu editor favorito:
+$ nano exemplo_uso.py
+ou
+$ gedit exemplo_uso.py
+ou
+$ code exemplo_uso.py
+
+PASSO 3: Edite a seção de CONFIGURAÇÕES
+----------------------------------------
+Localize esta seção no topo do arquivo:
+
+# ===== CONFIGURAÇÕES - EDITE AQUI =====
+PROJETO = "meu_video.osp"
+CRIAR_NOVO = True
+
+# Suas imagens e timestamps
+IMAGENS_TIMESTAMPS = [
+    ("imagem1.png", 5.0, 3.0),
+    ("imagem2.png", 12.5, 2.0),
+    ("imagem3.png", 20.0, 4.5),
+]
+
+Modifique conforme suas necessidades:
+- Troque os nomes das imagens
+- Ajuste os timestamps (em segundos)
+- Ajuste a duração de cada imagem
+
+EXEMPLO EDITADO:
+IMAGENS_TIMESTAMPS = [
+    ("/home/usuario/projeto/imagem1.png", 0.0, 5.0),
+    ("/home/usuario/projeto/imagem2.png", 6.0, 5.0),
+    ("/home/usuario/projeto/imagem3.png", 12.0, 5.0),
+]
+
+PASSO 4: Salve e execute
+-------------------------
+Salve o arquivo e execute:
+$ python3 exemplo_uso.py
+
+Você verá:
+✓ Projeto criado
+✓ Imagens adicionadas
+✓ Arquivo .osp salvo
+
+PASSO 5: Abra no OpenShot
+--------------------------
+✓ Abra o OpenShot
+✓ File → Open Project
+✓ Selecione meu_video.osp
+✓ Pronto!
+
+
+══════════════════════════════════════════════════════════════
+OPÇÃO 3: MÉTODO ORGANIZADO (Arquivo CSV)
+══════════════════════════════════════════════════════════════
+
+PASSO 1: Crie um arquivo CSV
+-----------------------------
+Crie um arquivo chamado minhas_imagens.csv:
+
+imagem,timestamp,duracao
+/home/usuario/imagem1.png,0.0,5.0
+/home/usuario/imagem2.png,6.0,5.0
+/home/usuario/imagem3.png,12.0,5.0
+
+Você pode criar isso em:
+- Excel ou LibreOffice Calc (salve como CSV)
+- Editor de texto simples
+- Google Sheets (exporte como CSV)
+
+PASSO 2: Edite sync_from_csv.py
+--------------------------------
+Abra o arquivo e altere:
+
+ARQUIVO_CSV = "minhas_imagens.csv"
+PROJETO = "meu_projeto.osp"
+
+PASSO 3: Execute
+----------------
+$ python3 sync_from_csv.py
+
+PASSO 4: Abra no OpenShot
+--------------------------
+✓ Abra o arquivo .osp criado
+✓ Visualize suas imagens
+
+
+══════════════════════════════════════════════════════════════
+ENTENDENDO OS PARÂMETROS
+══════════════════════════════════════════════════════════════
+
+┌─────────────────────────────────────────────────────────────┐
+│ TIMESTAMP (quando a imagem aparece)                         │
+├─────────────────────────────────────────────────────────────┤
+│ 0.0   → No início do vídeo                                  │
+│ 5.0   → Aos 5 segundos                                      │
+│ 10.5  → Aos 10 segundos e meio                              │
+│ 90.0  → Aos 1 minuto e 30 segundos                          │
+└─────────────────────────────────────────────────────────────┘
+
+┌─────────────────────────────────────────────────────────────┐
+│ DURAÇÃO (quanto tempo a imagem fica visível)                │
+├─────────────────────────────────────────────────────────────┤
+│ 2.0   → Fica 2 segundos na tela                             │
+│ 3.5   → Fica 3 segundos e meio                              │
+│ 10.0  → Fica 10 segundos                                    │
+└─────────────────────────────────────────────────────────────┘
+
+┌─────────────────────────────────────────────────────────────┐
+│ LAYER (camada - qual fica na frente)                        │
+├─────────────────────────────────────────────────────────────┤
+│ 1   → Fundo (atrás de tudo)                                 │
+│ 2   → Conteúdo principal                                    │
+│ 3   → Conteúdo secundário                                   │
+│ 4   → Overlays                                              │
+│ 5   → Logo/marca d'água (na frente de tudo)                 │
+│                                                              │
+│ Regra: NÚMERO MAIOR = MAIS NA FRENTE                        │
+└─────────────────────────────────────────────────────────────┘
+
+
+══════════════════════════════════════════════════════════════
+EXEMPLOS PRÁTICOS COMENTADOS
+══════════════════════════════════════════════════════════════
+
+EXEMPLO 1: Logo fixo no canto superior direito
+-----------------------------------------------
+from sync_images_openshot import OpenShotImageSync
+
+sync = OpenShotImageSync("video_logo.osp")
+sync.create_new_project()
+
+# Adiciona logo que fica o vídeo todo (0 a 60 segundos)
+sync.add_image_at_timestamp(
+    image_path="logo.png",
+    timestamp=0.0,        # Começa no início
+    duration=60.0,        # Fica 60 segundos (1 minuto)
+    layer=5,              # Layer alto (fica na frente)
+    x=0.85,               # 85% para a direita
+    y=0.05,               # 5% do topo
+    scale_x=0.15,         # 15% do tamanho original
+    scale_y=0.15
+)
+
+sync.save_project()
+
+
+EXEMPLO 2: Slideshow de 3 fotos
+--------------------------------
+from sync_images_openshot import OpenShotImageSync
+
+sync = OpenShotImageSync("slideshow.osp")
+sync.create_new_project()
+
+fotos = ["foto1.jpg", "foto2.jpg", "foto3.jpg"]
+
+# Adiciona uma foto a cada 5 segundos
+# Cada foto fica 4 segundos (1 segundo de transição)
+sync.add_images_at_interval(
+    image_paths=fotos,
+    start_time=0.0,      # Começa no início
+    interval=5.0,        # Nova foto a cada 5 segundos
+    duration=4.0,        # Cada foto fica 4 segundos
+    layer=1              # Layer de fundo
+)
+
+sync.save_project()
+
+
+EXEMPLO 3: Gráficos em momentos específicos
+--------------------------------------------
+from sync_images_openshot import OpenShotImageSync
+
+sync = OpenShotImageSync("apresentacao.osp")
+sync.create_new_project()
+
+# Lista de gráficos com timestamps específicos
+graficos = [
+    ("grafico_vendas.png", 10.0, 8.0),      # Aos 10s, dura 8s
+    ("grafico_lucro.png", 25.0, 8.0),       # Aos 25s, dura 8s
+    ("grafico_crescimento.png", 40.0, 8.0), # Aos 40s, dura 8s
+]
+
+sync.add_multiple_images(graficos, layer=2)
+sync.save_project()
+
+
+══════════════════════════════════════════════════════════════
+VERIFICANDO O RESULTADO NO OPENSHOT
+══════════════════════════════════════════════════════════════
+
+PASSO 1: Abra o OpenShot
+-------------------------
+Execute o OpenShot normalmente
+
+PASSO 2: Abra seu projeto
+--------------------------
+File → Open Project → Selecione seu .osp
+
+PASSO 3: Visualize a timeline
+------------------------------
+Você verá:
+✓ Track 1, 2, 3... (layers)
+✓ Suas imagens nos timestamps corretos
+✓ Duração visual de cada imagem
+
+PASSO 4: Pré-visualize
+-----------------------
+Clique no botão Play para ver o resultado
+
+PASSO 5: Ajuste se necessário
+------------------------------
+✓ Arraste imagens para mudar posição
+✓ Redimensione para mudar duração
+✓ Clique com direito → Properties para mais opções
+
+PASSO 6: Exporte seu vídeo
+---------------------------
+File → Export Video → Escolha formato (MP4) → Export
+
+
+══════════════════════════════════════════════════════════════
+TROUBLESHOOTING COMUM
+══════════════════════════════════════════════════════════════
+
+PROBLEMA: "Imagem não encontrada"
+----------------------------------
+SOLUÇÃO:
+✓ Use caminho completo (absoluto)
+✓ Exemplo: /home/usuario/projeto/imagem.png
+✓ Não use apenas: imagem.png
+
+PROBLEMA: "Imagens não aparecem no vídeo"
+------------------------------------------
+SOLUÇÃO:
+✓ Verifique o layer (tente usar 3, 4 ou 5)
+✓ Verifique se timestamps estão corretos
+✓ Verifique se duração é maior que 0
+
+PROBLEMA: "Projeto não abre no OpenShot"
+-----------------------------------------
+SOLUÇÃO:
+✓ Certifique-se que OpenShot está atualizado
+✓ Tente criar um projeto simples primeiro
+✓ Verifique se o arquivo .osp foi salvo corretamente
+
+
+══════════════════════════════════════════════════════════════
+PRÓXIMOS PASSOS
+══════════════════════════════════════════════════════════════
+
+Agora que você criou seu primeiro projeto:
+
+1. Experimente diferentes timestamps
+2. Tente adicionar mais imagens
+3. Brinque com posicionamento (x, y)
+4. Teste diferentes layers
+5. Veja os exemplos avançados em exemplos_avancados.py
+6. Leia a documentação completa em README.md
+
+
+══════════════════════════════════════════════════════════════
+DICAS FINAIS
+══════════════════════════════════════════════════════════════
+
+✨ Comece simples: teste com 2-3 imagens primeiro
+✨ Use timestamps redondos: 5.0, 10.0, 15.0 (mais fácil)
+✨ Mantenha duração mínima de 2 segundos para boa visualização
+✨ Use layers diferentes para diferentes tipos de conteúdo
+✨ Salve versões do seu .osp conforme avança
+
+
+🎬 PARABÉNS! VOCÊ CRIOU SEU PRIMEIRO PROJETO!
+==============================================
+
+Para mais informações, consulte:
+- README.md (documentação completa)
+- COMANDOS_UTEIS.txt (referência rápida)
+- exemplos_avancados.py (casos complexos)
+
+
+Bom trabalho e divirta-se criando seus vídeos! 🎥✨

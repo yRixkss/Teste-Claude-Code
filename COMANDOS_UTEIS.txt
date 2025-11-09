@@ -1,0 +1,217 @@
+🎬 COMANDOS ÚTEIS - SINCRONIZAÇÃO DE IMAGENS OPENSHOT
+======================================================
+
+📌 EXECUÇÃO BÁSICA
+------------------
+
+# Método 1: Script simples (recomendado para iniciantes)
+python3 exemplo_uso.py
+
+# Método 2: Assistente interativo (mais fácil)
+python3 assistente_interativo.py
+
+# Método 3: Importar de CSV
+python3 sync_from_csv.py
+
+# Método 4: Exemplos avançados
+python3 exemplos_avancados.py
+
+
+📂 ESTRUTURA DE ARQUIVOS
+------------------------
+
+sync_images_openshot.py    → Biblioteca principal
+exemplo_uso.py             → Exemplo básico editável
+sync_from_csv.py           → Importa timestamps de CSV
+timestamps.csv             → Exemplo de arquivo CSV
+exemplos_avancados.py      → Casos de uso complexos
+assistente_interativo.py   → Assistente guiado
+README.md                  → Documentação completa
+INICIO_RAPIDO.md          → Guia de início rápido
+
+
+🔧 CONFIGURAÇÕES COMUNS
+-----------------------
+
+# Criar projeto Full HD 30fps
+sync.create_new_project(width=1920, height=1080, fps=30)
+
+# Criar projeto 4K 60fps
+sync.create_new_project(width=3840, height=2160, fps=60)
+
+# Adicionar imagem específica
+sync.add_image_at_timestamp("foto.jpg", 5.0, 3.0, layer=2)
+
+# Adicionar múltiplas imagens
+imagens = [
+    ("img1.png", 5.0, 3.0),
+    ("img2.png", 10.0, 2.0),
+]
+sync.add_multiple_images(imagens, layer=2)
+
+# Slideshow automático
+fotos = ["foto1.jpg", "foto2.jpg", "foto3.jpg"]
+sync.add_images_at_interval(fotos, 0.0, 5.0, 3.0, 1)
+
+
+🎯 POSICIONAMENTO
+-----------------
+
+# Centro da tela
+x=0.5, y=0.5
+
+# Cantos
+Superior esquerdo: x=0.0, y=0.0
+Superior direito:  x=1.0, y=0.0
+Inferior esquerdo: x=0.0, y=1.0
+Inferior direito:  x=1.0, y=1.0
+
+# Escala
+Normal:    scale_x=1.0, scale_y=1.0
+Metade:    scale_x=0.5, scale_y=0.5
+Miniatura: scale_x=0.15, scale_y=0.15
+
+
+📊 LAYERS (CAMADAS)
+-------------------
+
+Layer 1: Fundo/base
+Layer 2-3: Conteúdo principal
+Layer 4: Overlays
+Layer 5: Logos/marca d'água
+
+Regra: Números MAIORES ficam NA FRENTE
+
+
+⏱️ TIMESTAMPS
+-------------
+
+# Formato em segundos
+5.0      → 5 segundos
+10.5     → 10.5 segundos
+90.0     → 1 minuto e 30 segundos
+
+# Converter minutos para segundos
+1:30  → 1*60 + 30 = 90 segundos
+2:45  → 2*60 + 45 = 165 segundos
+
+
+📄 FORMATO CSV
+--------------
+
+Básico (com cabeçalho):
+imagem,timestamp,duracao
+foto1.jpg,5.0,3.0
+foto2.jpg,10.0,2.5
+
+Sem duração (usa padrão):
+imagem,timestamp
+foto1.jpg,5.0
+foto2.jpg,10.0
+
+Com comentários:
+# Isto é um comentário
+imagem,timestamp,duracao
+logo.png,0.0,10.0
+
+
+🐍 IMPORTAR NO SEU CÓDIGO
+--------------------------
+
+from sync_images_openshot import OpenShotImageSync
+
+# Criar instância
+sync = OpenShotImageSync("projeto.osp")
+
+# Criar novo projeto
+sync.create_new_project()
+
+# Carregar projeto existente
+sync.load_project()
+
+# Adicionar imagens
+sync.add_image_at_timestamp("img.png", 5.0, 3.0, 2)
+
+# Salvar
+sync.save_project()
+
+
+💡 DICAS
+--------
+
+1. Organize suas imagens em pastas
+2. Use caminhos absolutos para evitar erros
+3. Teste com poucas imagens primeiro
+4. Layers maiores ficam na frente
+5. Use o assistente interativo se tiver dúvidas
+
+
+🔍 RESOLUÇÃO DE PROBLEMAS
+--------------------------
+
+❌ "Imagem não encontrada"
+→ Use caminho completo: /home/user/imagens/foto.jpg
+
+❌ "Projeto não abre no OpenShot"
+→ Verifique se o OpenShot está atualizado
+→ Tente criar um projeto novo
+
+❌ "Imagens não aparecem"
+→ Verifique timestamps e duração
+→ Confirme que o layer está correto
+→ Use layer maior (ex: 5) para ficar na frente
+
+
+📚 DOCUMENTAÇÃO
+---------------
+
+README.md          → Guia completo
+INICIO_RAPIDO.md   → Começar rapidamente
+exemplos_avancados.py → Casos de uso complexos
+
+
+🆘 AJUDA
+--------
+
+OpenShot: https://www.openshot.org/
+Documentação: https://www.openshot.org/user-guide/
+
+
+✨ ATALHOS RÁPIDOS
+------------------
+
+# Logo no canto (1 comando)
+sync.add_image_at_timestamp("logo.png", 0, 60, 5, x=0.85, y=0.05, scale_x=0.15, scale_y=0.15)
+
+# Slideshow de 5 fotos (2 comandos)
+fotos = ["f1.jpg", "f2.jpg", "f3.jpg", "f4.jpg", "f5.jpg"]
+sync.add_images_at_interval(fotos, 0, 4, 3, 1)
+
+# Texto centralizado (1 comando)
+sync.add_image_at_timestamp("texto.png", 10, 5, 3, x=0.5, y=0.5)
+
+
+🎓 EXEMPLOS DE COMANDOS COMPLETOS
+----------------------------------
+
+# Exemplo 1: Criar projeto simples
+python3 -c "
+from sync_images_openshot import OpenShotImageSync
+sync = OpenShotImageSync('teste.osp')
+sync.create_new_project()
+sync.add_image_at_timestamp('foto.jpg', 5.0, 3.0, 2)
+sync.save_project()
+"
+
+# Exemplo 2: Slideshow rápido
+python3 -c "
+from sync_images_openshot import OpenShotImageSync
+sync = OpenShotImageSync('slideshow.osp')
+sync.create_new_project()
+fotos = ['f1.jpg', 'f2.jpg', 'f3.jpg']
+sync.add_images_at_interval(fotos, 0, 5, 3, 1)
+sync.save_project()
+"
+
+
+🚀 BOM TRABALHO!
